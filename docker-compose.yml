@@ -1,0 +1,39 @@
+# Free self-hosting: app + PostgreSQL on one machine (e.g. an Oracle Cloud Always Free VM).
+#   1. Copy .env.example to .env and set POSTGRES_PASSWORD and APP_ORIGIN.
+#   2. docker compose up -d --build
+#   3. docker compose exec app npx tsx server/scripts/create-admin.ts --username admin --email you@example.com
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: colorpromoney
+      POSTGRES_USER: colorpromoney
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U colorpromoney"]
+      interval: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3000}
+      DATABASE_URL: postgres://colorpromoney:${POSTGRES_PASSWORD}@db:5432/colorpromoney
+      DEMO_MODE: "false"
+      TRUST_PROXY: "1"
+      STARTING_POINTS: ${STARTING_POINTS:-0}
+      REFERRAL_BONUS_POINTS: ${REFERRAL_BONUS_POINTS:-150}
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

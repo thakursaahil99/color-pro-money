@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-navy-900 text-slate-100 antialiased;
+  background-image: radial-gradient(ellipse at top, #16214a 0%, #0a1128 55%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-navy-700 bg-navy-800/80 p-4 shadow-lg shadow-black/20 backdrop-blur sm:p-5;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-semibold transition
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-sky-500 text-navy-950 hover:bg-sky-400;
+  }
+  .btn-ghost {
+    @apply btn border border-navy-600 bg-navy-700/60 text-slate-100 hover:bg-navy-600;
+  }
+  .btn-danger {
+    @apply btn bg-red-500 text-white hover:bg-red-400;
+  }
+  .input {
+    @apply w-full rounded-xl border border-navy-600 bg-navy-950/60 px-3 py-2.5 text-slate-100 placeholder:text-slate-500
+      focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400;
+  }
+  .label {
+    @apply mb-1 block text-sm font-medium text-slate-300;
+  }
+  .muted {
+    @apply text-slate-400;
+  }
+  .table-wrap {
+    @apply -mx-4 overflow-x-auto sm:mx-0;
+  }
+  .table {
+    @apply w-full min-w-[640px] text-left text-sm;
+  }
+  .table th {
+    @apply border-b border-navy-700 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-slate-400;
+  }
+  .table td {
+    @apply border-b border-navy-700/60 px-3 py-2.5 align-middle;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Light "phone app" theme used for the player side (everything outside /admin).
+   The pages are written with the dark palette, so it is re-mapped here.
+   ------------------------------------------------------------------ */
+.app-light {
+  color-scheme: light;
+  color: #1f2937;
+}
+.app-light .card {
+  background: #fff;
+  border-color: #e3e8ee;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  backdrop-filter: none;
+}
+.app-light .muted { color: #6b7280; }
+.app-light .label { color: #374151; }
+.app-light .input {
+  background: #fff;
+  border-color: #cfd6de;
+  color: #111827;
+}
+.app-light .input::placeholder { color: #9ca3af; }
+.app-light .input:focus { border-color: #16a394; box-shadow: 0 0 0 1px #16a394; }
+.app-light .btn-primary { background: #16a394; color: #fff; }
+.app-light .btn-primary:hover { background: #12877b; }
+.app-light .btn-ghost { background: #eef1f4; border-color: #d5dbe2; color: #1f2937; }
+.app-light .btn-ghost:hover { background: #e2e7ec; }
+.app-light .btn-danger { color: #fff; }
+.app-light .table th { color: #6b7280; border-color: #e5e9ee; }
+.app-light .table td { border-color: #eef1f4; }
+
+.app-light .text-slate-100,
+.app-light .text-slate-200 { color: #1f2937; }
+.app-light .text-slate-300 { color: #374151; }
+.app-light .text-slate-400 { color: #6b7280; }
+.app-light .text-slate-500 { color: #6b7280; }
+.app-light .text-sky-200,
+.app-light .text-sky-300 { color: #0b7a70; }
+.app-light .text-green-300 { color: #15803d; }
+.app-light .text-red-300 { color: #b91c1c; }
+.app-light .text-red-200 { color: #991b1b; }
+.app-light .text-amber-300,
+.app-light .text-amber-200 { color: #b45309; }
+.app-light .text-violet-300 { color: #7e22ce; }
+.app-light .bg-navy-950\/60,
+.app-light .bg-navy-950\/50,
+.app-light .bg-navy-950\/40,
+.app-light .bg-navy-950\/30 { background: #f3f5f8; }
+.app-light .bg-navy-700 { background: #e6ebf0; }
+.app-light .border-navy-600,
+.app-light .border-navy-700 { border-color: #dde3ea; }
+.app-light .divide-navy-700 > :not([hidden]) ~ :not([hidden]) { border-color: #e5e9ee; }
+.app-light .border-sky-500\/20,
+.app-light .border-sky-500\/30,
+.app-light .border-sky-500\/40 { border-color: #a7ddd6; }
+.app-light .bg-sky-500\/5,
+.app-light .bg-sky-500\/10,
+.app-light .bg-sky-500\/20 { background: #e6f6f4; }
+.app-light .bg-green-500\/15 { background: #dcfce7; }
+.app-light .bg-red-500\/10 { background: #fee2e2; }
+.app-light .bg-amber-500\/10 { background: #fef3c7; }
+.app-light .bg-slate-500\/10 { background: #eef1f4; }
+.app-light .border-green-500\/30 { border-color: #86efac; }
+.app-light .border-red-500\/30 { border-color: #fca5a5; }
+.app-light .border-amber-500\/30 { border-color: #fcd34d; }
+.app-light .border-slate-500\/30 { border-color: #cbd5e1; }
+.app-light code { color: #0f172a; }
+
+/* extra light-theme mappings used by the admin panel */
+.app-light .bg-navy-950 { background: #e3e8ee; }
+.app-light .bg-navy-950\/70 { background: #e3e8ee; }
+.app-light .bg-navy-700\/60 { background: #e6ebf0; }
+.app-light .bg-navy-600 { background: #d5dbe2; }
+.app-light .bg-navy-900\/90 { background: rgba(255, 255, 255, 0.92); }
+.app-light .hover\:bg-navy-700:hover { background: #e6ebf0; }
+.app-light .hover\:text-white:hover { color: #111827; }
+.app-light .text-sky-100 { color: #0b7a70; }
+.app-light .bg-slate-600\/40 { background: #e3e8ee; }
+.app-light .bg-amber-500\/20 { background: #fde68a; }
+.app-light .fill-slate-100 { fill: #1f2937; }
+.app-light .fill-slate-400 { fill: #6b7280; }
+.app-light .text-slate-200 { color: #1f2937; }
+/* white text stays white on solid coloured buttons */
+.app-light .bg-red-500.text-white,
+.app-light .bg-game-red.text-white { color: #fff; }
